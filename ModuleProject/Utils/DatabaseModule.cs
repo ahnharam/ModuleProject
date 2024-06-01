@@ -207,7 +207,7 @@ namespace ModuleProject.Utils
 
                     using (var adapter = new MySqlDataAdapter(command))
                     {
-                        DataTable table = new();
+                        DataTable table = new DataTable();
                         await Task.Run(() => adapter.Fill(table)); // 비동기 작업으로 변경
                         return table;
                     }
