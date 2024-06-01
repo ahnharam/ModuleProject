@@ -1,31 +1,32 @@
 ﻿using Moq;
-using MySql.Data.MySqlClient;
 using NUnit.Framework;
-using System;
 using System.Data;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using ModuleProject.Utils;
-using NUnit.Framework.Legacy; // 추가: 클래식 어서트를 사용하기 위해 추가
+using MySql.Data.MySqlClient;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ModuleProject.Interface;
+using NUnit.Framework.Legacy;
+using System;
 
 namespace ModuleProject.Tests
 {
     [TestFixture]
     public class DatabaseModuleTests
     {
-        private Mock<MySqlConnection> _mockConnection;
-        private Mock<MySqlDataAdapter> _mockDataAdapter;
-        private Mock<MySqlCommand> _mockCommand;
+        private Mock<IDatabaseConnection> _mockDbConnection;
         private DatabaseModule _databaseModule;
 
         [SetUp]
         public void Setup()
         {
-            _mockConnection = new Mock<MySqlConnection>();
-            _mockDataAdapter = new Mock<MySqlDataAdapter>();
-            _mockCommand = new Mock<MySqlCommand>();
+            _mockDbConnection = new Mock<IDatabaseConnection>();
             _databaseModule = DatabaseModule.Instance;
-            _databaseModule.Conn = _mockConnection.Object;
+
+            // 싱글톤 인스턴스 초기화
+            _databaseModule.ServerSetting("127.0.0.1", "mysql", "root", "root", "3306");
+            var privateObject = new PrivateObject(_databaseModule);
+            privateObject.SetField("_dbConnection", _mockDbConnection.Object);
         }
 
         [Test]
@@ -38,22 +39,12 @@ namespace ModuleProject.Tests
             expectedTable.Columns.Add("Name", typeof(string));
             expectedTable.Rows.Add(1, "John Doe");
 
-            // DataAdapter의 Fill 메서드를 모킹하여 expectedTable을 반환하도록 설정
-            _mockDataAdapter
-                .Setup(da => da.Fill(It.IsAny<DataTable>()))
+            var mockConnection = new Mock<MySqlConnection>();
+            _mockDbConnection.Setup(conn => conn.Connection).Returns(mockConnection.Object);
+
+            var mockDataAdapter = new Mock<MySqlDataAdapter>();
+            mockDataAdapter.Setup(adapter => adapter.Fill(It.IsAny<DataTable>()))
                 .Callback<DataTable>(dt => dt.Merge(expectedTable));
-
-            // MySqlConnection이 Open 상태임을 모킹
-            _mockConnection.Setup(conn => conn.State).Returns(ConnectionState.Open);
-
-            // MySqlCommand의 매개변수화된 쿼리 설정
-            _mockCommand.Setup(cmd => cmd.CommandText).Returns(sql);
-            _mockCommand.Setup(cmd => cmd.Connection).Returns(_mockConnection.Object);
-
-            // Arrange - 모킹된 DataAdapter가 새로운 인스턴스를 반환하도록 설정
-            _mockDataAdapter
-                .Setup(da => da.SelectCommand)
-                .Returns(_mockCommand.Object);
 
             // Act
             DataTable result = await _databaseModule.SelectAsync(sql);
@@ -76,17 +67,14 @@ namespace ModuleProject.Tests
         {
             // Arrange
             string sql = "SELECT * FROM Users";
+            var mockConnection = new Mock<MySqlConnection>();
+            _mockDbConnection.Setup(conn => conn.Connection).Returns(mockConnection.Object);
+            mockConnection.Setup(conn => conn.State).Returns(ConnectionState.Closed);
 
-            // MySqlConnection이 Closed 상태임을 모킹
-            _mockConnection.Setup(conn => conn.State).Returns(ConnectionState.Closed);
-
-            // DatabaseModule의 Connect 메서드가 false를 반환하도록 설정
-            var mockDatabaseModule = new Mock<DatabaseModule> { CallBase = true };
-            mockDatabaseModule.Setup(db => db.Connect()).Returns(false);
-            mockDatabaseModule.Object.Conn = _mockConnection.Object;
+            _mockDbConnection.Setup(db => db.Open()).Throws(new Exception("Connection failed"));
 
             // Act
-            DataTable result = await mockDatabaseModule.Object.SelectAsync(sql);
+            DataTable result = await _databaseModule.SelectAsync(sql);
 
             // Assert
             ClassicAssert.IsNull(result);
@@ -111,7 +99,7 @@ namespace ModuleProject.Tests
         public void Connect_ShouldReturnFalse_WhenConnectionFails()
         {
             // Arrange
-            _mockConnection.Setup(conn => conn.Open()).Throws(new Exception("Connection failed"));
+            _mockDbConnection.Setup(conn => conn.Open()).Throws(new Exception("Connection failed"));
 
             // Act
             bool result = _databaseModule.Connect();
@@ -124,15 +112,15 @@ namespace ModuleProject.Tests
         public void Disconnect_ShouldCloseConnection_WhenConnectionIsOpen()
         {
             // Arrange
-            _mockConnection.Setup(conn => conn.State).Returns(ConnectionState.Open);
+            var mockConnection = new Mock<MySqlConnection>();
+            _mockDbConnection.Setup(conn => conn.Connection).Returns(mockConnection.Object);
+            mockConnection.Setup(conn => conn.State).Returns(ConnectionState.Open);
 
             // Act
             _databaseModule.Disconnect();
 
             // Assert
-            _mockConnection.Verify(conn => conn.Close(), Times.Once);
+            mockConnection.Verify(conn => conn.Close(), Times.Once);
         }
-
-        // 기타 테스트 케이스들...
     }
 }
