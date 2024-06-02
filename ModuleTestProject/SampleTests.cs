@@ -10,6 +10,7 @@ namespace ModuleTestProject
         [Test]
         public void TestMethod1()
         {
+            // 레거시 Nunit 테스트
             ClassicAssert.AreEqual(1, 1);
         }
     }

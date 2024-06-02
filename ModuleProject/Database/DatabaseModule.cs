@@ -7,6 +7,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System;
 using System.Data.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Documents;
 
 public class DatabaseModule : BindableBase
 {
@@ -71,20 +74,25 @@ public class DatabaseModule : BindableBase
 
     public void CheckServerSetting()
     {
+        var errorMessages = new List<string>();
+
         if (string.IsNullOrWhiteSpace(ServerIp))
-            throw new DatabaseConnectionException("Server IP cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + ". Server IP cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(Database))
-            throw new DatabaseConnectionException("Database name cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + ".Database name cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(Uid))
-            throw new DatabaseConnectionException("User ID cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + ".User ID cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(Pwd))
-            throw new DatabaseConnectionException("Password cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + ".Password cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(ServerPort))
-            throw new DatabaseConnectionException("Server port cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + ".Server port cannot be null or empty.");
+
+        if (errorMessages.Any())
+            throw new DatabaseConnectionException(string.Join(" ", errorMessages));
     }
 
     public void Setup()
@@ -108,7 +116,7 @@ public class DatabaseModule : BindableBase
         }
         catch (DatabaseConnectionException ex)
         {
-            Debug.WriteLine($"General Error: {ex.Message}");
+            Debug.WriteLine($"Connection Error: {ex.Message}");
         }
         return connected;
     }
