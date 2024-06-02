@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModuleProject.Utils
+namespace ModuleProject.Database
 {
     public class DatabaseConnection : IDatabaseConnection
     {
@@ -21,12 +21,26 @@ namespace ModuleProject.Utils
 
         public void Open()
         {
-            _connection.Open();
+            try
+            {
+                _connection.Open();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseConnectionException("Failed to open the database connection.", ex);
+            }
         }
 
         public void Close()
         {
-            _connection.Close();
+            try
+            {
+                _connection.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new DatabaseConnectionException("Failed to close the database connection.", ex);
+            }
         }
 
         public void Dispose()

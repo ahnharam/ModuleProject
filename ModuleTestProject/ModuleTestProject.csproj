@@ -61,7 +61,10 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseModuleTest.cs" />
+    <Compile Include="Database\DatabaseConnectionExceptionTest.cs" />
+    <Compile Include="Database\DatabaseConnectionTest.cs" />
+    <Compile Include="Database\DatabaseModuleTest_Not_Database.cs" />
+    <Compile Include="Database\DatabaseModuleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleTests.cs" />
   </ItemGroup>
