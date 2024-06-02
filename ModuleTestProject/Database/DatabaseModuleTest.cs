@@ -6,7 +6,7 @@ using System.Data;
 using System.Threading.Tasks;
 using ModuleProject.Interface;
 
-namespace ModuleProject.Database
+namespace ModuleTestProject.Database
 {
     [TestFixture]
     public class DatabaseModuleTest

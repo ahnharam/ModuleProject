@@ -206,15 +206,4 @@ public class DatabaseModule : BindableBase
             Debug.WriteLine("DB Disconnected Error : " + e);
         }
     }
-
-    // 팩토리 메서드를 추가하여 테스트 시 Mocking이 가능하도록 함
-    public virtual MySqlCommand CreateCommand(string commandText, MySqlConnection connection)
-    {
-        return new MySqlCommand(commandText, connection);
-    }
-
-    public virtual IMySqlDataAdapter CreateDataAdapter(MySqlCommand command)
-    {
-        return new MySqlDataAdapterWrapper(command);
-    }
 }

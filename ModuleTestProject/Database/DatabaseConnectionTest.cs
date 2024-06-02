@@ -3,7 +3,7 @@ using Moq;
 using System.Data;
 using ModuleProject.Database;
 
-namespace ModuleProject.Database
+namespace ModuleTestProject.Database
 {
     [TestFixture]
     public class DatabaseConnectionTests
