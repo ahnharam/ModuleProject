@@ -38,8 +38,18 @@ namespace ModuleTestProject.Database
         {
             // 서버 아이피가 없을 경우 오류 발생을 위한 초기화
             _databaseModule.ServerIp = null;
+            _databaseModule.Database = null;
+            _databaseModule.Uid = null;
+            _databaseModule.Pwd = null;
+            _databaseModule.ServerPort = null;
             // CheckServerSetting 메서드가 ServerIp가 null일 때 DatabaseConnectionException 예외 발생
-            Assert.Throws<DatabaseConnectionException>(() => _databaseModule.CheckServerSetting());
+            var ex = Assert.Throws<DatabaseConnectionException>(() => _databaseModule.CheckServerSetting());
+            Assert.That(ex.Message, Does.Contain(
+                "1. Server IP cannot be null or empty. "
+                + "2. Database name cannot be null or empty. "
+                + "3. User ID cannot be null or empty. "
+                + "4. Password cannot be null or empty. "
+                + "5. Server Port cannot be null or empty."));
         }
 
         [Test]

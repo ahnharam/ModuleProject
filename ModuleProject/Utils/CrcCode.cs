@@ -48,20 +48,29 @@ namespace ModuleProject.Utils
         /// <summary>
         /// 문자열을 바이트 배열로 변환
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns>Convert Byte[]</returns>
+        /// <param name="str">입력 문자열</param>
+        /// <returns>변환된 바이트 배열</returns>
         public static byte[] StringToByte(string str)
         {
-            byte[] StrByte = Encoding.UTF8.GetBytes(str);
-            return StrByte;
+            return Encoding.UTF8.GetBytes(str);
         }
 
         /// <summary>
-        /// 변환한 바이트 배열을 CRC 코드를 적용하여 문자열로 변환
+        /// 바이트 배열을 16진수 문자열로 변환
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns>CRC String</returns>
-        public static string ComputeCrc(byte[] data)    //UInt16
+        /// <param name="bytes">입력 바이트 배열</param>
+        /// <returns>변환된 16진수 문자열</returns>
+        public static string ByteToHex(byte[] bytes)
+        {
+            return BitConverter.ToString(bytes).Replace("-", " ");
+        }
+
+        /// <summary>
+        /// 바이트 배열에 대해 CRC 코드를 생성 및 바이트 배열로 반환
+        /// </summary>
+        /// <param name="data">입력 바이트 배열</param>
+        /// <returns>CRC 문자열</returns>
+        public static byte[] ComputeCrc(byte[] data)    //UInt16
         {
             ushort crc = 0xFFFF;
 
@@ -69,44 +78,46 @@ namespace ModuleProject.Utils
             {
                 crc = (ushort)((crc >> 8) ^ CrcTable[(crc ^ datum) & 0xFF]);
             }
-            byte[] crcByte = BitConverter.GetBytes(crc);
-            string hexCrc = BitConverter.ToString(crcByte);
-            return hexCrc.Replace("-", " ");
+            byte[] crcBytes = BitConverter.GetBytes(crc);
+            Array.Reverse(crcBytes); // CRC 바이트 배열을 빅 엔디언 형식으로 변환
+            return crcBytes;
         }
 
         /// <summary>
-        /// 16진수로 변환할 바이트 배열
+        /// 문자열을 바이트 배열로 변환 후 CRC 코드를 생성 및 문자열로 변환
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns>Convert Hex</returns>
-        public static string ByteToHex(byte[] bytes)
+        /// <param name="data">입력 문자열</param>
+        /// <returns>CRC 문자열</returns>
+        public static string ComputeCrc(string str)    //UInt16
         {
-            string hex = BitConverter.ToString(bytes);
-            return hex.Replace("-", " ");
+            byte[] data = StringToByte(str);
+            byte[] crcBytes = ComputeCrc(data);
+            return BitConverter.ToString(crcBytes).Replace("-", " ");
         }
 
         /// <summary>
         /// 16진수로 구성된 문자열을 바이트 배열로 변환
         /// </summary>
-        /// <param name="convertString"></param>
-        /// <returns></returns>
-        public static byte[] ConvertHexStringToByte(string convertString)
+        /// <param name="hexString">16진수 문자열</param>
+        /// <returns>변환된 바이트 배열</returns>
+        public static byte[] ConvertHexStringToByte(string hexString)
         {
-            byte[] convertArr = new byte[convertString.Length / 2];
+            int length = hexString.Length / 2;
+            byte[] result = new byte[length];
 
-            for (int i = 0; i < convertArr.Length; i++)
+            for (int i = 0; i < length; i++)
             {
-                convertArr[i] = Convert.ToByte(convertString.Substring(i * 2, 2), 16);
+                result[i] = Convert.ToByte(hexString.Substring(i * 2, 2), 16);
             }
-            return convertArr;
+            return result;
         }
 
         /// <summary>
         /// 바이트 배열을 16진수 문자열로 변환
         /// </summary>
-        /// <param name="buffer"></param>
-        /// <param name="bytesRead"></param>
-        /// <returns></returns>
+        /// <param name="buffer">입력 바이트 배열</param>
+        /// <param name="bytesRead">읽은 바이트 수</param>
+        /// <returns>변환된 16진수 문자열</returns>
         public static string ConvertBytesToString(byte[] buffer, int bytesRead)
         {
             StringBuilder responseBuilder = new StringBuilder();
@@ -115,34 +126,24 @@ namespace ModuleProject.Utils
                 responseBuilder.AppendFormat("{0:X2} ", b);
             }
 
-            return responseBuilder.ToString();
+            return responseBuilder.ToString().Trim();
         }
 
         /// <summary>
-        /// 헥사 문자열 바이트 배열로 변환,
-        /// CRC Code 생성 포함
+        /// 헥사 문자열을 바이트 배열로 변환하고, 
+        /// CRC 코드를 포함한 바이트 배열 반환
         /// </summary>
-        /// <param name="convertString"></param>
-        /// <returns>완성된 바이트 배열</returns>
-        public static byte[] StringHexToByteWithCRC(string convertString)
+        /// <param name="hexString">헥사 문자열</param>
+        /// <returns>CRC가 포함된 바이트 배열</returns>
+        public static byte[] StringHexToByteWithCRC(string hexString)
         {
             // 문자열을 바이트 배열로 변환
-            byte[] convertArr = new byte[convertString.Length / 2];
-            for (int count = 0; count < convertArr.Length; count++)
-            {
-                convertArr[count] = Convert.ToByte(convertString.Substring(count * 2, 2), 16);
-            }
-            
+            byte[] data = ConvertHexStringToByte(hexString);
             // 변환한 바이트 배열의 CRC Code 생성
-            ushort crc = 0xFFFF;
-            foreach (byte datum in convertString)
-            {
-                crc = (ushort)((crc >> 8) ^ CrcTable[(crc ^ datum) & 0xFF]);
-            }
-            byte[] crcByte = BitConverter.GetBytes(crc);
+            byte[] crcBytes = ComputeCrc(data);
 
             // 두 바이트 배열을 연결하여 반환
-            return convertArr.Concat(crcByte).ToArray();
+            return data.Concat(crcBytes).ToArray();
         }
     }
 }

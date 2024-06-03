@@ -18,7 +18,6 @@ public class DatabaseModule : BindableBase
 
     private IDatabaseConnection _dbConnection;
     private readonly object _dbLock = new object();
-
     public DatabaseModule() { }
 
     #region DB Setting property
@@ -77,19 +76,19 @@ public class DatabaseModule : BindableBase
         var errorMessages = new List<string>();
 
         if (string.IsNullOrWhiteSpace(ServerIp))
-            errorMessages.Add(errorMessages.Count + ". Server IP cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + 1 + ". Server IP cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(Database))
-            errorMessages.Add(errorMessages.Count + ".Database name cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + 1 + ". Database name cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(Uid))
-            errorMessages.Add(errorMessages.Count + ".User ID cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + 1 + ". User ID cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(Pwd))
-            errorMessages.Add(errorMessages.Count + ".Password cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + 1 + ". Password cannot be null or empty.");
 
         if (string.IsNullOrWhiteSpace(ServerPort))
-            errorMessages.Add(errorMessages.Count + ".Server port cannot be null or empty.");
+            errorMessages.Add(errorMessages.Count + 1 + ". Server Port cannot be null or empty.");
 
         if (errorMessages.Any())
             throw new DatabaseConnectionException(string.Join(" ", errorMessages));
@@ -152,6 +151,7 @@ public class DatabaseModule : BindableBase
                 {
                     DataTable table = new DataTable();
                     await Task.Run(() => adapter.Fill(table));
+
                     return table;
                 }
             }
