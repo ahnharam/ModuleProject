@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using ModuleProject.Pay;
+using Prism.Regions;
+using System.Windows;
 
 namespace ModuleProject.Views
 {
@@ -7,9 +9,10 @@ namespace ModuleProject.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(IRegionManager regionManager)
         {
             InitializeComponent();
+            regionManager.RegisterViewWithRegion("ContentRegion", typeof(TossPayView));
         }
     }
 }

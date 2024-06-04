@@ -1,4 +1,5 @@
-﻿using ModuleProject.Views;
+﻿using ModuleProject.Pay;
+using ModuleProject.Views;
 using Prism.Ioc;
 using System.Windows;
 
@@ -16,7 +17,7 @@ namespace ModuleProject
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterForNavigation<TossPayView, TossPayViewModel>();
         }
     }
 }
