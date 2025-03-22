@@ -1,10 +1,17 @@
 ﻿<UserControl x:Class="ModuleProject.Pay.TossPayView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             xmlns:prism="http://prismlibrary.com/"         
+             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Height="600" Width="400"
+             >
     <Grid>
 
-        <Button Content="Pay with TossPay" Command="{Binding PayCommand}" />
+        <!--<Button Content="Pay with TossPay" Command="{Binding PayCommand}" />-->
+        <Button Content="결제하기" HorizontalAlignment="Center" VerticalAlignment="Top" Click="OnPayButtonClick"/>
+        <!--<wv2:WebView2 x:Name="WebViewControl" Visibility="Visible" Source=" https://www.microsoft.com" VerticalAlignment="Top" Height="600" Width="400" />-->
+        <!--localhost:5173/-->
+        <wv2:WebView2 x:Name="WebViewControl" Visibility="Collapsed" Source="about:blank" NavigationCompleted="WebViewControl_NavigationCompleted"/>
     </Grid>
 </UserControl>
