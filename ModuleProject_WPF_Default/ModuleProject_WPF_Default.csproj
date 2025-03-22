@@ -131,25 +131,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AlarmOperationDBModel.cs" />
-    <Compile Include="Models\AlarmactionprocessDBModel.cs" />
-    <Compile Include="Models\AlarmProcessDBModel.cs" />
-    <Compile Include="Models\AudioEncoderDBModel.cs" />
     <Compile Include="Models\BaseDBList.cs" />
-    <Compile Include="Models\CameraAlarmOperationDBModel.cs" />
-    <Compile Include="Models\CameraDBModel.cs" />
-    <Compile Include="Models\ContactExtensionDBModel.cs" />
-    <Compile Include="Models\ContactInputDBModel.cs" />
-    <Compile Include="Models\ContactOutputDBModel.cs" />
-    <Compile Include="Example\ExampleModel.cs" />
-    <Compile Include="Example\ExampleModel2.cs" />
-    <Compile Include="Models\IsEditUpdater.cs" />
-    <Compile Include="Models\MultikanModel.cs" />
-    <Compile Include="Models\MultikhanAutoBroadcastInfoNewModel.cs" />
-    <Compile Include="Models\ServerModel.cs" />
-    <Compile Include="Models\StationInfoModel.cs" />
-    <Compile Include="Models\TempHumSensorModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
