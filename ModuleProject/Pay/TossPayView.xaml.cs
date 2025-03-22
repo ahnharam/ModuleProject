@@ -1,7 +1,11 @@
-﻿using Microsoft.Web.WebView2.Core;
+﻿using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using Microsoft.Web.WebView2.Core;
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using Microsoft.Web.WebView2.Core;
 
 namespace ModuleProject.Pay
 {
@@ -13,6 +17,7 @@ namespace ModuleProject.Pay
         public TossPayView()
         {
             InitializeComponent();
+            //InitializeWebView();
         }
 
         private async void OnPayButtonClick(object sender, RoutedEventArgs e)
@@ -34,5 +39,20 @@ namespace ModuleProject.Pay
                 MessageBox.Show("결제 실패");
             }
         }
+        //private async void InitializeWebView()
+        //{
+        //    var currentDirectory = Directory.GetCurrentDirectory();
+        //    var htmlFilePath = Path.Combine(currentDirectory, "payment_widget.html");
+
+        //    if (File.Exists(htmlFilePath))
+        //    {
+        //        await webView.EnsureCoreWebView2Async(null);
+        //        webView.CoreWebView2.Navigate(htmlFilePath);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("HTML 파일을 찾을 수 없습니다.");
+        //    }
+        //}
     }
 }
