@@ -1,11 +1,7 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
-using Microsoft.Web.WebView2.Core;
-using System.Windows;
+﻿using Microsoft.Web.WebView2.Core;
 using System;
+using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Web.WebView2.Core;
 
 namespace ModuleProject.Pay
 {

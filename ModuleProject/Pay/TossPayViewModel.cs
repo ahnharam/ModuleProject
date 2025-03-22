@@ -15,7 +15,7 @@ namespace ModuleProject.Pay
     {
         private readonly string _clientKey = "test_ck_Z1aOwX7K8mXanq06ME7PryQxzvNP";
         private readonly string _secretKey = "test_sk_Poxy1XQL8Rxw5Gb0o5wXV7nO5Wml";
-        private readonly WebView2 _webView; 
+        private readonly WebView2 _webView;
         private TossPay tossPay;
 
         public DelegateCommand PayCommand { get; private set; }

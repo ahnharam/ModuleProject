@@ -2,14 +2,12 @@
 using ModuleProject.Interface;
 using MySql.Data.MySqlClient;
 using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using System;
-using System.Data.Common;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
+using System.Threading.Tasks;
 
 public class DatabaseModule : BindableBase
 {

@@ -14,7 +14,7 @@ namespace ModuleProject.ViewModels
 
         public MainWindowViewModel()
         {
-            
+
         }
     }
 }

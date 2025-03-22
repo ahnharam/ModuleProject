@@ -1,5 +1,5 @@
 ﻿using ModuleProject.Pay;
-using Prism.Regions;
+using Prism.Navigation.Regions;
 using System.Windows;
 
 namespace ModuleProject.Views
@@ -12,6 +12,12 @@ namespace ModuleProject.Views
         public MainWindow(IRegionManager regionManager)
         {
             InitializeComponent();
+
+            ViewSelect(regionManager);
+        }
+
+        private void ViewSelect(IRegionManager regionManager)
+        {
             regionManager.RegisterViewWithRegion("ContentRegion", typeof(TossPayView));
         }
     }
