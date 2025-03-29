@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9E8CF868-A77D-485D-9B9F-D8F43BB651EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DashBoard</RootNamespace>
+    <AssemblyName>DashBoard</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.27.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="Prism, Version=8.1.97.5141, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.8.1.97\lib\net47\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=8.1.97.5141, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.8.1.97\lib\net47\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.10\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converter\ControlDeviceVisibleConverter.cs" />
+    <Compile Include="Converter\TabControlHeaderWidthConverter.cs" />
+    <Compile Include="Converter\TreeViewLineLengthConverter.cs" />
+    <Compile Include="DashBoardMainView.xaml.cs">
+      <DependentUpon>DashBoardMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\OperationTimeState.cs" />
+    <Compile Include="Popup\BroadcastPopupView.xaml.cs">
+      <DependentUpon>BroadcastPopupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Popup\BroadcastPopupViewModel.cs" />
+    <Compile Include="View\BroadcastView.xaml.cs">
+      <DependentUpon>BroadcastView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BroadcastViewModel.cs" />
+    <Compile Include="View\SubView\ControlView.xaml.cs">
+      <DependentUpon>ControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\ControlViewModel.cs" />
+    <Compile Include="DashBoardMainViewModel.cs" />
+    <Compile Include="View\DataListView.xaml.cs">
+      <DependentUpon>DataListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DataListViewModel.cs" />
+    <Compile Include="Model\DataListModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="View\OperationView.xaml.cs">
+      <DependentUpon>OperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScreenView.xaml.cs">
+      <DependentUpon>ScreenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StateViewModel.cs" />
+    <Compile Include="View\StationViewModel.cs" />
+    <Compile Include="View\ScreenViewModel.cs" />
+    <Compile Include="View\SensorStateViewModel.cs" />
+    <Compile Include="View\OperationViewModel.cs" />
+    <Compile Include="View\SensorStateView.xaml.cs">
+      <DependentUpon>SensorStateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StateView.xaml.cs">
+      <DependentUpon>StateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StationView.xaml.cs">
+      <DependentUpon>StationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\LightView.xaml.cs">
+      <DependentUpon>LightView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\LightViewModel.cs" />
+    <Compile Include="View\SubView\ModuleStateView.xaml.cs">
+      <DependentUpon>ModuleStateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\OpenCloseView.xaml.cs">
+      <DependentUpon>OpenCloseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\PeopleCountView.xaml.cs">
+      <DependentUpon>PeopleCountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\PowerControlView.xaml.cs">
+      <DependentUpon>PowerControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SubView\PowerControlViewModel.cs" />
+    <Compile Include="View\SubView\SensorStateSubViewModel.cs" />
+    <Compile Include="View\SubView\SensorStateSubView.xaml.cs">
+      <DependentUpon>SensorStateSubView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DashBoardMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Popup\BroadcastPopupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\BroadcastView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\ControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DataListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SensorStateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\LightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\ModuleStateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\OpenCloseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\PeopleCountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\PowerControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SubView\SensorStateSubView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Protocol\Protocol.csproj">
+      <Project>{611671ee-36e4-4742-8086-423bd29be07b}</Project>
+      <Name>Protocol</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

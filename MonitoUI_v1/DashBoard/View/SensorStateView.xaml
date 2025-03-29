@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="DashBoard.View.SensorStateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DashBoard.View"
+             xmlns:prism="http://www.codeplex.com/prism" 
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="1329"
+             Height="150">
+    <Grid Background="#FF363636">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="5.8*"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <Image Source="{Binding}"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="부산시청사거리" FontSize="22" TextAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                <TextBlock Grid.Row="1" Text="카메라 카테고리 또는 번호" Foreground="#33FFFFFF" TextAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding SensorList}" Margin="20">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+
+        <Border Grid.Column="2" Background="#FF2B2B2B"/>
+
+        <Grid Grid.Column="3" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.7*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="일일방문자" Foreground="#7FFFFFFF" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="14"/>
+                <Border Grid.Row="1" CornerRadius="5" Background="#FF262626" Margin="5" Padding="10,0">
+                    <!--<TextBlock Text="{Binding}" Foreground="#FFE46124" HorizontalAlignment="Right"/>-->
+                    <TextBlock Text="1,258명" Foreground="#FFDB8F40" HorizontalAlignment="Right" FontSize="18" VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.7*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="월방문자" Foreground="#7FFFFFFF" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="14"/>
+                <Border Grid.Row="1" CornerRadius="5" Margin="5" Background="#FF505050" Padding="10,0">
+                    <!--<TextBlock Text="{Binding}" Foreground="White" HorizontalAlignment="Right"/>-->
+                    <TextBlock Text="428,123,345명" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18"/>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

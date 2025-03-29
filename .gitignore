@@ -362,3 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 ModuleProject/Config/test-418801-ecb6e8848fb5.json
+
+# zip File 
+*.psd
+*.zip

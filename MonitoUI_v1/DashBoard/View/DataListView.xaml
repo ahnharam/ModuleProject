@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="DashBoard.View.DataListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DashBoard"
+             xmlns:prism="http://www.codeplex.com/prism" 
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1600">
+    <UserControl.Resources>
+        <!--DataTemplate for Published Date column defined in Grid.Resources.  PublishDate is a property on the ItemsSource of type DateTime -->
+        <DataTemplate x:Key="TempTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="{Binding Temp}" FontSize="8" HorizontalAlignment="Center" />
+                    <TextBlock Text="/" FontSize="8" HorizontalAlignment="Center" />
+                    <TextBlock Text="{Binding Humi}" FontSize="8" HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="AirTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="iceIcon" Grid.Column="0" />
+                    <TextBlock x:Name="iceText" Grid.Column="1" Text="냉방" FontSize="8" HorizontalAlignment="Center" />
+                    <Image x:Name="warmIcon" Grid.Column="0"/>
+                    <TextBlock x:Name="warmText" Grid.Column="1" Text="냉방" FontSize="8" HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Air}" Value="true">
+                    <Setter TargetName="iceIcon" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="iceText" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="warmIcon" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="warmText" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Air}" Value="false">
+                    <Setter TargetName="iceIcon" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="iceText" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="warmIcon" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="warmText" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="AirStateTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="goodIcon" Grid.Column="0" />
+                    <TextBlock x:Name="goodText" Grid.Column="1" Text="냉방" FontSize="8" HorizontalAlignment="Center" />
+                    <Image x:Name="badIcon" Grid.Column="0"/>
+                    <TextBlock x:Name="badText" Grid.Column="1" Text="냉방" FontSize="8" HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding AirState}" Value="true">
+                    <Setter TargetName="goodIcon" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="goodText" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="badIcon" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="badText" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding AirState}" Value="false">
+                    <Setter TargetName="goodIcon" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="goodText" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="badIcon" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="badText" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="CallTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="onText" Grid.Column="1" Text="냉방" FontSize="8" HorizontalAlignment="Center" />
+                    <TextBlock x:Name="offText" Grid.Column="1" Text="냉방" FontSize="8" HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Call}" Value="true">
+                    <Setter TargetName="onText" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="offText" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Call}" Value="false">
+                    <Setter TargetName="onText" Property="Visibility" Value="Collapsed"/>
+                    <Setter TargetName="offText" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        <DataTemplate x:Key="FairTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <TextBlock Text="{Binding Fair}" FontSize="8" HorizontalAlignment="Center" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="UserTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <TextBlock Text="{Binding User}" FontSize="8" HorizontalAlignment="Center" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="NumTemplate" >
+            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
+                <TextBlock Text="{Binding Num}" FontSize="8" HorizontalAlignment="Center" />
+            </Border>
+        </DataTemplate>
+        <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment"
+                 Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid  ItemsSource="{Binding DataList}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1*" Header="No" Binding="{Binding No}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTextColumn  Width="2*" Header="Section" Binding="{Binding Section}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn  Width="1.5*" Header="온·습도" CellTemplate="{StaticResource TempTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn Width="1*" Header="냉·난방" CellTemplate="{StaticResource AirTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn Width="1*" Header="공기질" CellTemplate="{StaticResource AirStateTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTextColumn Width="1*" Header="Light" Binding="{Binding Light}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTextColumn Width="1*" Header="Door In" Binding="{Binding Doorin}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTextColumn Width="1*" Header="Door Out" Binding="{Binding DoorOut}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn Width="1*" Header="Call" CellTemplate="{StaticResource CallTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn Width="1*" Header="Fair" CellTemplate="{StaticResource FairTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTextColumn Width="3*" Header="AI Camera/Best Shot" Binding="{Binding AICam}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn Width="1*" Header="이용자" CellTemplate="{StaticResource UserTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTextColumn Width="2*" Header="Derect People" Binding="{Binding Derect}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+                <DataGridTemplateColumn Width="1.5*" Header="Numver" CellTemplate="{StaticResource NumTemplate}" HeaderStyle="{Binding Mode=OneWay, Source={StaticResource DataGridColumnHeaderStyle}}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

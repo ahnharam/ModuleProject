@@ -1,0 +1,26 @@
+	22-11-14
+mncontrol 	- device 칼럼 string-> int
+		- function 칼럼 string -> int
+		- defaultvalue 칼럼 string -> int
+
+
+mnscreen
+		- 스크린 화면 타입
+
+mnstation
+		- groupno -> group 테이블 no
+		- name -> 이름
+		- default -> 프로그램 재시작 시 기본 화면
+
+mnoperation
+		- stationname 중복
+		- device 칼럼 string -> int
+		- dicon 칼럼 string -> int
+
+		----------- 칼럼 3개 통합
+		- dfunction 칼럼
+		- dvalue 칼럼 
+		- drun 칼럼 
+
+controlfunction 
+		- 테이블 생성 필요

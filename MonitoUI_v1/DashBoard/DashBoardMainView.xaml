@@ -1,0 +1,181 @@
+﻿<UserControl x:Class="DashBoard.DashBoardMainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://www.codeplex.com/prism"
+             xmlns:view="clr-namespace:DashBoard.View"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+              Background="#FF525254"
+             d:DesignHeight="960" d:DesignWidth="1920">
+    <Grid Margin="10,10,10,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="15" Cursor="Hand" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <!--<view:DashBoardView Grid.Column="2" Grid.ColumnSpan="4" />-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="{Binding LeftPanelState[2].Height}" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#FF363636" Height="auto" MinHeight="100" Margin="0,0,0,10">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding LeftPanelState[0].Name}" Height="38" Padding="10,7" Background="#FF28282C" Foreground="White" FontSize="18" />
+
+                <ContentControl Grid.Row="1" Content="{Binding LeftPanelState[0].UserControl}" />
+            </Grid>
+
+            <Grid Grid.Row="1" Background="#FF363636" Height="auto" MinHeight="100"  Margin="0,0,0,10">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding LeftPanelState[1].UserControl}" />
+            </Grid>
+
+            <Grid Grid.Row="2" Background="#FF363636" Height="auto" MinHeight="300"  Margin="0,0,0,10">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding LeftPanelState[2].Name}" Padding="10,7" Background="#FF28282C" Foreground="White" FontSize="18" />
+
+                <ContentControl Grid.Row="1" Content="{Binding LeftPanelState[2].UserControl}" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+
+                <RowDefinition Height="15" />
+                <RowDefinition Height="auto" />
+
+                <RowDefinition Height="15" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <Image Source="{Binding DashBoardImage}" VerticalAlignment="Bottom" />
+
+            </Grid>
+
+            <Grid  Grid.Row="2" MinHeight="150">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <view:SensorStateView />
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <Rectangle  Fill="#FF363636" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#FF363636" Height="auto" MinHeight="465"  Margin="0,0,0,10">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding RightPanelState[0].Name}" Padding="10,7" Background="#FF28282C" Foreground="White" FontSize="18" />
+
+                <ContentControl Grid.Row="1" Content="{Binding RightPanelState[0].UserControl}" />
+            </Grid>
+
+            <!--<Grid Grid.Row="1" Background="#FF363636" Height="auto" MaxWidth="293" Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding RightPanelState[1].Name}" Padding="10,7" Background="#FF28282C" Foreground="White" FontSize="18" />
+
+                <ContentControl Grid.Row="1" Content="{Binding RightPanelState[1].UserControl}" />
+            </Grid>-->
+
+            <Grid Grid.Row="1" Background="#FF363636"  MaxHeight="973" Margin="0,0,0,10">
+                <Grid.Effect>
+                    <DropShadowEffect
+                    BlurRadius="15"
+                    Color="Black"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" Opacity="0.5" />
+                </Grid.Effect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding RightPanelState[1].Name}" Padding="10,7" Background="#FF28282C" Foreground="White" FontSize="18" />
+
+                <ContentControl Grid.Row="1" Content="{Binding RightPanelState[1].UserControl}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
