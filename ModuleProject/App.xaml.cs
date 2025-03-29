@@ -1,5 +1,5 @@
-﻿using ModuleProject.Pay;
-using ModuleProject.Views;
+﻿using ModuleProject.GoogleSheet;
+using ModuleProject.TossPay;
 using Prism.Ioc;
 using System.Windows;
 
@@ -18,6 +18,8 @@ namespace ModuleProject
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<TossPayView, TossPayViewModel>();
+            containerRegistry.RegisterForNavigation<GoogleSheetView, GoogleSheetViewModel>();
+            containerRegistry.RegisterSingleton<IGoogleSheetsService, GoogleSheetsService>();
         }
     }
 }

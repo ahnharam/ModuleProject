@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 
-namespace ModuleProject.Interface
+namespace ModuleProject.Database
 {
     public interface IDatabaseConnection : IDisposable
     {

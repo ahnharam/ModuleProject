@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ModuleProject.Pay
+namespace ModuleProject.TossPay
 {
     public class TossPay
     {
@@ -21,9 +21,9 @@ namespace ModuleProject.Pay
 
                 var paymentData = new
                 {
-                    amount = amount,
-                    orderId = orderId,
-                    orderName = orderName,
+                    amount,
+                    orderId,
+                    orderName,
                     successUrl = "http://localhost:5000/success",
                     failUrl = "http://localhost:5000/fail"
                 };

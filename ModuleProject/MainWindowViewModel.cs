@@ -1,7 +1,6 @@
 ﻿using Prism.Mvvm;
 
-/// .Net 8 버전 프로젝트
-namespace ModuleProject.ViewModels
+namespace ModuleProject
 {
     public class MainWindowViewModel : BindableBase
     {
@@ -12,9 +11,6 @@ namespace ModuleProject.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public MainWindowViewModel()
-        {
-
-        }
+        public MainWindowViewModel() { }
     }
 }

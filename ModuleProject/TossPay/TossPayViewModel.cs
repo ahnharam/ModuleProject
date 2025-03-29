@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 
-namespace ModuleProject.Pay
+namespace ModuleProject.TossPay
 {
     public class TossPayViewModel : BindableBase
     {

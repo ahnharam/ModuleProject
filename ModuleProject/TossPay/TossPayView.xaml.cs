@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ModuleProject.Pay
+namespace ModuleProject.TossPay
 {
     /// <summary>
     /// Interaction logic for TossPayView

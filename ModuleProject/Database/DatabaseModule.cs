@@ -1,5 +1,4 @@
 ﻿using ModuleProject.Database;
-using ModuleProject.Interface;
 using MySql.Data.MySqlClient;
 using Prism.Mvvm;
 using System;
